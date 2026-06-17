@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARK.D's COLOR LAB — 퍼스널 이미지 브랜딩</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+<style>
+:root{
+  --paper:#F7F3EC; --card:#FCFAF4; --ink:#2A2521; --muted:#7B7264;
+  --brown:#8A7256; --brown-d:#5E4B39; --navy:#1E2A44; --line:#E6DFD2;
+  --line-soft:#EFEAE0; --gold:#B89B6E;
+  --shadow:0 1px 2px rgba(42,37,33,.04),0 8px 30px rgba(42,37,33,.06);
+  --serif-disp:'Cinzel',serif;
+  --serif:'Pretendard','Pretendard Variable',-apple-system,'Apple SD Gothic Neo',sans-serif;
+  --sans:'Pretendard','Pretendard Variable',-apple-system,'Apple SD Gothic Neo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,select,textarea{font-family:inherit;font-size:15px;color:var(--ink)}
+::selection{background:#E7DCC6}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(20px,5vw,64px);background:rgba(247,243,236,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--serif-disp);letter-spacing:.14em;font-size:16px;font-weight:600}
+.brand small{display:block;font-family:var(--sans);font-weight:300;font-size:9.5px;letter-spacing:.34em;color:var(--brown);margin-top:2px}
+.navlinks{display:flex;gap:26px;align-items:center}
+.navlinks a:not(.nav-cta){font-size:13.5px;letter-spacing:.02em;color:var(--ink);position:relative;padding:4px 0;transition:color .2s}
+.navlinks a:not(.nav-cta):hover{color:var(--brown)}
+.navlinks a.staff{color:var(--brown)}
+.navlinks a.nav-cta{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.04em;color:#fff;background:var(--navy);padding:9px 22px;border-radius:3px;transition:background .25s}
+.navlinks a.nav-cta:hover{background:#16203a;color:#fff}
+.burger{display:none;flex-direction:column;gap:5px;padding:6px}
+.burger span{width:22px;height:1.5px;background:var(--ink);transition:.3s}
+
+/* ---------- SECTIONS ---------- */
+.view{display:none;animation:fade .5s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+.eyebrow{font-family:var(--serif-disp);font-size:11px;letter-spacing:.36em;color:var(--brown);text-transform:uppercase;margin-bottom:14px}
+.sec-pad{padding:clamp(56px,9vw,108px) 0}
+.sec-head{text-align:center;max-width:660px;margin:0 auto clamp(36px,6vw,60px)}
+.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,4vw,38px);line-height:1.28;margin-bottom:14px}
+.sec-head p{color:var(--muted);font-size:15.5px}
+
+/* ---------- HERO ---------- */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,6vw,72px);align-items:center;
+  padding:clamp(48px,8vw,96px) 0 clamp(40px,7vw,80px)}
+.hero-en{font-family:var(--serif-disp);font-weight:600;font-size:clamp(36px,6.2vw,72px);line-height:1.04;letter-spacing:.01em;margin:6px 0 8px}
+.hero-en .nv{color:var(--navy)}
+.hero-kr{font-family:var(--serif);font-size:clamp(17px,2.4vw,22px);color:var(--brown-d);margin-bottom:22px;font-weight:500}
+.hero p.lede{color:var(--muted);font-size:16px;max-width:460px;margin-bottom:32px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{font-size:14px;letter-spacing:.04em;padding:13px 28px;border-radius:2px;transition:.25s;display:inline-flex;align-items:center;gap:9px}
+.btn-fill{background:var(--navy);color:#fff}.btn-fill:hover{background:#16203a;transform:translateY(-1px)}
+.btn-out{border:1px solid var(--brown);color:var(--brown-d)}.btn-out:hover{background:var(--brown);color:#fff}
+/* drape signature */
+.drape{display:flex;gap:10px;justify-content:center;height:clamp(300px,40vw,440px)}
+.drape .strip{width:clamp(34px,6vw,62px);border-radius:0 0 40px 40px;box-shadow:var(--shadow);
+  transform:translateY(-24px);animation:drop .9s cubic-bezier(.2,.8,.2,1) backwards}
+.drape .strip:nth-child(1){animation-delay:.05s}.drape .strip:nth-child(2){animation-delay:.15s;margin-top:18px}
+.drape .strip:nth-child(3){animation-delay:.25s;margin-top:6px}.drape .strip:nth-child(4){animation-delay:.35s;margin-top:30px}
+.drape .strip:nth-child(5){animation-delay:.45s;margin-top:12px}
+@keyframes drop{from{opacity:0;transform:translateY(-60px)}to{opacity:1;transform:translateY(-24px)}}
+
+.statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0}
+.stat{text-align:center}
+.stat b{display:block;font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;color:var(--navy)}
+.stat span{font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+
+/* cards / value */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:30px 24px;text-align:center}
+.vcard .ic{width:46px;height:46px;margin:0 auto 16px;border:1px solid var(--brown);border-radius:50%;display:grid;place-items:center;color:var(--brown);font-family:var(--serif-disp);font-size:15px}
+.vcard h4{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:8px}
+.vcard p{font-size:13.5px;color:var(--muted);line-height:1.6}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.step{padding:26px 22px;position:relative}
+.step:not(:last-child){border-right:1px solid var(--line)}
+.step .no{font-family:var(--serif-disp);font-size:13px;letter-spacing:.2em;color:var(--brown);margin-bottom:12px}
+.step h4{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:7px}
+.step p{font-size:13.5px;color:var(--muted)}
+
+.quote{background:var(--navy);color:#F2ECE0;text-align:center;border-radius:8px;padding:clamp(36px,6vw,64px)}
+.quote p{font-family:var(--serif);font-size:clamp(18px,2.6vw,25px);line-height:1.6;font-weight:500}
+.quote .mk{font-family:var(--serif-disp);font-size:38px;color:var(--gold);line-height:0;opacity:.6}
+
+/* ---------- PRICING ---------- */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:34px 28px;position:relative;transition:.3s}
+.tier:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.tier.feat{border-color:var(--navy);box-shadow:var(--shadow)}
+.tier .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:11px;letter-spacing:.18em;padding:5px 16px;border-radius:20px}
+.tier .ten{font-family:var(--serif-disp);font-size:12px;letter-spacing:.28em;color:var(--brown)}
+.tier h3{font-family:var(--serif);font-size:23px;font-weight:600;margin:8px 0 4px}
+.tier .price{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--navy)}
+.tier .dur{font-size:12.5px;color:var(--muted);margin-bottom:18px}
+.tier .desc{font-size:13.5px;color:var(--muted);min-height:42px;margin-bottom:18px;border-bottom:1px solid var(--line-soft);padding-bottom:18px}
+.tier ul{list-style:none;margin-bottom:26px}
+.tier li{font-size:13.5px;padding:7px 0 7px 24px;position:relative;color:var(--ink)}
+.tier li:before{content:"✓";position:absolute;left:0;color:var(--brown);font-weight:600}
+.tier .btn{width:100%;justify-content:center}
+.note-mini{text-align:center;font-size:12px;color:var(--muted);margin-top:22px}
+
+/* ---------- FORMS ---------- */
+.formwrap{max-width:760px;margin:0 auto}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:clamp(24px,4vw,40px);margin-bottom:22px}
+.fcard > .ftitle{font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.fcard > .ftitle .n{font-family:var(--serif-disp);font-size:12px;color:#fff;background:var(--brown);width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
+.fcard > .fsub{font-size:12.5px;color:var(--muted);margin-bottom:22px}
+.field{margin-bottom:18px}
+.field > label{display:block;font-size:13.5px;font-weight:500;margin-bottom:8px}
+.field > label .opt{color:var(--muted);font-weight:300;font-size:12px}
+.field input[type=text],.field input[type=tel],.field input[type=number],.field input[type=date],.field select,.field textarea{
+  width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:4px;background:#fff;transition:border .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brown)}
+.field textarea{resize:vertical;min-height:74px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-size:13px;padding:8px 15px;border:1px solid var(--line);border-radius:20px;background:#fff;transition:.2s;user-select:none}
+.chip:hover{border-color:var(--brown)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.scale{display:flex;gap:6px;flex-wrap:wrap}
+.scale .chip{min-width:40px;text-align:center}
+.consent{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted)}
+.consent input{margin-top:4px}
+.cbox{border:1px solid var(--line);border-radius:6px;padding:14px 16px;margin-bottom:14px;background:#fff}
+.cbox-t{font-size:13.5px;font-weight:600;margin-bottom:8px}
+.cbox-t .req{color:#b04a3a}.cbox-t .sel{color:var(--brown)}
+.cbox-b{font-size:12px;color:var(--muted);line-height:1.7;white-space:pre-line;max-height:120px;overflow:auto;
+  background:var(--paper);border-radius:4px;padding:10px 12px;margin-bottom:10px}
+.cbox label.consent{font-size:13px;color:var(--ink)}
+.submitbar{text-align:center;margin-top:8px}
+.submitbar .btn{padding:14px 44px}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--navy);color:#fff;
+  padding:14px 28px;border-radius:4px;font-size:14px;box-shadow:var(--shadow);z-index:300;transition:transform .4s;max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* booking calendar */
+.bk-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:26px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-head b{font-family:var(--serif);font-size:17px}
+.cal-head button{width:32px;height:32px;border:1px solid var(--line);border-radius:50%;color:var(--brown)}
+.cal-head button:hover{background:var(--brown);color:#fff}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal .dow{font-size:11px;color:var(--muted);text-align:center;padding:6px 0}
+.cal .day{aspect-ratio:1;display:grid;place-items:center;font-size:13.5px;border-radius:50%;transition:.15s;border:1px solid transparent}
+.cal .day.sel{background:var(--navy);color:#fff}
+.cal .day.able{cursor:pointer}.cal .day.able:hover{border-color:var(--brown)}
+.cal .day.disabled{color:#cfc7b8}
+.slots{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px}
+.slot{font-size:13px;padding:9px 14px;border:1px solid var(--line);border-radius:4px;background:#fff}
+.slot.able{cursor:pointer}.slot.able:hover{border-color:var(--brown)}
+.slot.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+.slot.booked{color:#cfc7b8;text-decoration:line-through;cursor:not-allowed}
+.bk-summary{background:var(--paper);border:1px dashed var(--line);border-radius:6px;padding:16px;font-size:13.5px;margin:18px 0}
+.bk-summary span{color:var(--brown-d);font-weight:500}
+
+/* swatch editor */
+.sw-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.sw{width:42px;height:42px;border-radius:6px;border:1px solid var(--line);position:relative;cursor:pointer}
+.sw .x{position:absolute;top:-7px;right:-7px;width:18px;height:18px;background:var(--ink);color:#fff;border-radius:50%;font-size:11px;display:none;place-items:center}
+.sw:hover .x{display:grid}
+.sw-add{width:42px;height:42px;border:1px dashed var(--brown);border-radius:6px;color:var(--brown);font-size:20px;display:grid;place-items:center}
+
+/* result sheet */
+.rs-pick{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:26px}
+.rs-pick select{min-width:240px;padding:11px 13px;border:1px solid var(--line);border-radius:4px;background:#fff}
+.sheet{background:#fff;border:1px solid var(--line);border-radius:8px;max-width:880px;margin:0 auto;overflow:hidden;box-shadow:var(--shadow)}
+.sheet-top{background:var(--navy);color:#F4EEE2;padding:34px clamp(24px,4vw,46px);text-align:center}
+.sheet-top .eyebrow{color:var(--gold)}
+.sheet-top h2{font-family:var(--serif-disp);font-size:clamp(24px,4vw,38px);font-weight:600;letter-spacing:.02em;margin:4px 0}
+.sheet-top .ko{font-family:var(--serif);font-size:16px;color:#D9CFBE}
+.sheet-top .who{margin-top:14px;font-size:13px;letter-spacing:.04em;color:#C7BBA6}
+.sheet-body{padding:clamp(24px,4vw,46px)}
+.sb-block{margin-bottom:34px}
+.sb-block h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--navy);letter-spacing:.02em;
+  padding-bottom:9px;border-bottom:1px solid var(--line);margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.sb-block h3 .en{font-family:var(--serif-disp);font-size:11px;letter-spacing:.22em;color:var(--brown);margin-left:auto}
+.pal{display:flex;flex-wrap:wrap;gap:0;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.pal .c{flex:1;min-width:54px;height:74px}
+.pal-worst .c{height:60px;filter:saturate(.96)}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:8px 16px;font-size:14px}
+.kv dt{color:var(--muted)}.kv dd{font-weight:500}
+.tagline{font-family:var(--serif);font-size:15px;color:var(--brown-d);text-align:center;background:var(--paper);
+  border-radius:6px;padding:18px;margin-top:8px}
+.lk{display:flex;flex-wrap:wrap;gap:8px}
+.lk span{font-size:12.5px;border:1px solid var(--line);border-radius:20px;padding:6px 14px;color:var(--brown-d)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.mini-list{list-style:none}
+.mini-list li{font-size:13.5px;padding:5px 0 5px 20px;position:relative;color:var(--ink)}
+.mini-list li:before{content:"·";position:absolute;left:6px;color:var(--brown);font-weight:700}
+.sheet-foot{text-align:center;padding:20px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.24em;color:var(--brown);font-family:var(--serif-disp)}
+.rs-actions{text-align:center;margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* star ratings (worksheet) */
+.rates{display:grid;grid-template-columns:1fr 1fr;gap:11px 26px}
+.rate{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13.5px}
+.rate .st{white-space:nowrap}
+.rate .st i{font-style:normal;color:#dcd5c6;cursor:pointer;font-size:18px;padding:0 1px;transition:color .12s}
+.rate .st i.on{color:var(--brown)}
+/* result-sheet rating rows + plan + formula */
+.rate-row{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;padding:7px 0;border-bottom:1px solid var(--line-soft)}
+.rate-row:last-child{border-bottom:none}
+.rate-row .rstars{color:var(--brown);letter-spacing:2px;font-size:15px}
+.plan{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.plan .pcol{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px}
+.plan .pcol .ph{font-family:var(--serif-disp);font-size:11px;letter-spacing:.18em;color:#fff;background:var(--brown);display:inline-block;padding:3px 10px;border-radius:3px;margin-bottom:10px}
+.plan .pcol h4{font-size:13.5px;font-weight:600;margin-bottom:8px}
+.formula{text-align:center;background:var(--paper);border-radius:6px;padding:22px 16px;margin-top:8px}
+.formula .eq{font-size:13.5px;color:var(--brown-d);line-height:2}
+.formula .res{font-family:var(--serif-disp);font-size:clamp(18px,3vw,26px);color:var(--navy);margin-top:8px}
+.sb-block{break-inside:avoid}
+.upsell{border:1px dashed var(--brown);border-radius:6px;background:var(--paper);padding:16px 18px;margin-top:8px}
+.upsell .ut{font-size:13px;font-weight:600;color:var(--brown-d);margin-bottom:6px}
+.upsell .ub{font-size:12.5px;color:var(--muted);line-height:1.7}
+@media(max-width:640px){.rates{grid-template-columns:1fr}.plan{grid-template-columns:1fr}}
+
+/* records / admin */
+.gate{max-width:380px;margin:60px auto;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:40px 30px}
+.gate input{text-align:center;letter-spacing:.4em;font-size:20px;width:160px;margin:18px auto;display:block}
+.tabs{display:flex;gap:8px;justify-content:center;margin-bottom:26px}
+.tabs button{font-size:13px;padding:9px 20px;border:1px solid var(--line);border-radius:20px;background:#fff;color:var(--muted)}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.rec{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-bottom:10px;display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.rec .meta{font-size:13.5px}.rec .meta b{font-weight:500}
+.rec .meta small{color:var(--muted);display:block;margin-top:3px;font-size:12px}
+.rec .del{font-size:12px;color:#b04a3a;border:1px solid #e3c4bd;padding:5px 11px;border-radius:4px;white-space:nowrap}
+.rec .del:hover{background:#b04a3a;color:#fff}
+.empty{text-align:center;color:var(--muted);font-size:14px;padding:40px}
+
+/* footer */
+.foot{border-top:1px solid var(--line);padding:40px 0;text-align:center}
+.foot .b{font-family:var(--serif-disp);letter-spacing:.2em;font-size:14px}
+.foot small{display:block;color:var(--muted);font-size:12px;margin-top:8px;line-height:1.8}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:960px){
+  .nav{padding:14px clamp(18px,5vw,40px)}
+  .brand{font-size:15px}
+  .navlinks{position:fixed;inset:55px 0 auto 0;background:var(--paper);flex-direction:column;gap:0;
+    border-bottom:1px solid var(--line);padding:6px 0 14px;transform:translateY(-130%);transition:.35s;align-items:stretch}
+  .navlinks.open{transform:none}
+  .navlinks a:not(.nav-cta){padding:15px clamp(18px,5vw,40px);border-top:1px solid var(--line-soft)}
+  .navlinks a.nav-cta{margin:12px clamp(18px,5vw,40px) 2px;text-align:center;border:none;padding:14px}
+  .burger{display:flex}
+  .hero{grid-template-columns:1fr;text-align:center}.hero p.lede{margin-inline:auto}.hero-cta{justify-content:center}
+  .drape{order:-1;height:240px;margin-bottom:8px}
+  .grid4,.tiers,.steps,.statbar{grid-template-columns:1fr 1fr}
+  .step{border-right:none!important;border-bottom:1px solid var(--line)}
+  .bk-grid,.twocol,.row2,.row3{grid-template-columns:1fr}
+  .kv{grid-template-columns:96px 1fr}
+  .sec-pad{padding:clamp(44px,9vw,72px) 0}
+  .hero{padding:36px 0 28px}
+  .quote{margin:0 4px}
+  .sw,.sw-add{width:38px;height:38px}
+}
+@media(max-width:520px){
+  .grid4,.tiers{grid-template-columns:1fr}.statbar{grid-template-columns:1fr 1fr;gap:22px 8px}
+  .wrap{padding:0 18px}
+  .hero-en{font-size:40px}
+  .rs-pick select{min-width:0;width:100%}
+  .rs-actions .btn{flex:1}
+}
+@media print{
+  .nav,.foot,.rs-pick,.rs-actions,.toast{display:none!important}
+  body{background:#fff}.sheet{border:none;box-shadow:none;max-width:none}
+  .view{display:none!important}#view-result.active{display:block!important}
+  .sec-pad{padding:0}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" onclick="go('home');return false" class="brand">PARK.D's COLOR LAB<small>퍼스널 이미지 브랜딩</small></a>
+  <div class="navlinks" id="navlinks">
+    <a href="#" onclick="go('home');return false">홈</a>
+    <a href="#" onclick="go('services');return false">서비스</a>
+    <a href="#" onclick="go('intake');return false">사전 문진</a>
+    <a href="#" onclick="go('worksheet');return false" class="staff">진단 시트</a>
+    <a href="#" onclick="go('result');return false" class="staff">결과지</a>
+    <a href="#" onclick="go('records');return false" class="staff">기록</a>
+    <a href="#" onclick="go('booking');return false" class="nav-cta">예약하기</a>
+  </div>
+  <button class="burger" onclick="document.getElementById('navlinks').classList.toggle('open')"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ============ HOME ============ -->
+<section class="view active" id="view-home">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Premium Personal Color &amp; Image</div>
+        <h1 class="hero-en">Discover Your<br><span class="nv">Signature Color</span></h1>
+        <p class="hero-kr">색은 바꾸는 게 아니라, 당신을 가장 당신답게 만드는 일</p>
+        <p class="lede">타고난 피부·눈동자·머리카락 색을 정밀하게 분석해, 면접·미팅·일상 어디서든 가장 신뢰감 있고 세련돼 보이는 당신만의 컬러와 스타일을 설계합니다.</p>
+        <div class="hero-cta">
+          <a href="#" onclick="go('booking');return false" class="btn btn-fill">진단 예약하기 →</a>
+          <a href="#" onclick="go('services');return false" class="btn btn-out">서비스 보기</a>
+        </div>
+      </div>
+      <div class="drape" aria-hidden="true">
+        <div class="strip" style="background:#F2ECDD"></div>
+        <div class="strip" style="background:#EDC9D6"></div>
+        <div class="strip" style="background:#AFC4DD"></div>
+        <div class="strip" style="background:#6E9BC5"></div>
+        <div class="strip" style="background:#243A5E"></div>
+      </div>
+    </div>
+
+    <div class="statbar">
+      <div class="stat"><b>16-Tone</b><span>세분화 진단 시스템</span></div>
+      <div class="stat"><b>평생</b><span>휴대용 컬러 가이드 제공</span></div>
+      <div class="stat"><b>당일</b><span>디지털 결과지 즉시 전달</span></div>
+      <div class="stat"><b>1:1</b><span>맞춤 스타일링 코칭</span></div>
+    </div>
+  </div>
+
+  <div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Why PARK.D</div><h2>진단서가 아니라,<br>평생 쓰는 결과를 드립니다</h2></div>
+    <div class="grid4">
+      <div class="vcard"><div class="ic">01</div><h4>표준화된 정확도</h4><p>고연색 조명·표준 드레이프·기록 시트로 언제 받아도 같은 결과. 재현 가능한 진단을 약속합니다.</p></div>
+      <div class="vcard"><div class="ic">02</div><h4>실물 컬러 키트</h4><p>쇼핑할 때 들고 다니는 휴대용 스와치와 지갑형 컬러카드. 매장에서 바로 꺼내 쓰는 평생 가이드.</p></div>
+      <div class="vcard"><div class="ic">03</div><h4>깔끔한 디지털 결과지</h4><p>알아보기 힘든 손글씨 대신, 컬러·스타일·메이크업까지 정리된 결과지를 당일 바로 전달합니다.</p></div>
+      <div class="vcard"><div class="ic">04</div><h4>끝까지 함께</h4><p>옷장 점검·동행 쇼핑·시즌 리터치까지. 진단 이후의 변화를 책임지는 이미지 파트너.</p></div>
+    </div>
+  </div></div>
+
+  <div class="wrap"><div class="quote">
+    <div class="mk">“</div>
+    <p>당신의 이미지는 당신의 가장 강력한 자산입니다.<br>화려함보다 정제된 세련미에서, 가장 큰 경쟁력이 나옵니다.</p>
+  </div></div>
+
+  <div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow">How It Works</div><h2>진단은 순간이 아니라 경험입니다</h2></div>
+    <div class="steps">
+      <div class="step"><div class="no">STEP 01</div><h4>사전 문진</h4><p>예약 후 목표·라이프스타일·취향을 미리 받아 100% 맞춤 진단을 준비합니다.</p></div>
+      <div class="step"><div class="no">STEP 02</div><h4>드레이핑 진단</h4><p>표준 조명 아래 컬러 천을 대보며, 안색 변화를 직접 거울로 확인합니다.</p></div>
+      <div class="step"><div class="no">STEP 03</div><h4>스타일 설계</h4><p>컬러·체형·얼굴 이미지를 종합해 옷·메이크업·액세서리 방향을 제안합니다.</p></div>
+      <div class="step"><div class="no">STEP 04</div><h4>결과 &amp; 케어</h4><p>디지털 결과지와 실물 키트를 전달하고, 시즌 리터치로 관리합니다.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="view" id="view-services">
+  <div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Services &amp; Pricing</div><h2>목표에 맞는 세 가지 코스</h2>
+      <p>단순 진단부터, 비즈니스 이미지 전략과 캡슐 워드로브 구성까지.</p></div>
+    <div class="tiers" id="tiers"></div>
+    <p class="note-mini">* 가격·구성은 예시이며, 운영에 맞게 자유롭게 수정하세요. (코드 내 SERVICES 배열)</p>
+  </div></div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section class="view" id="view-booking">
+  <div class="sec-pad"><div class="wrap formwrap">
+    <div class="sec-head"><div class="eyebrow">Booking</div><h2>진단 예약</h2><p>원하는 코스와 날짜·시간을 선택해 주세요.</p></div>
+    <div class="fcard">
+      <div class="field"><label>코스 선택</label>
+        <div class="chips" id="bk-services"></div>
+      </div>
+      <div class="bk-grid">
+        <div>
+          <div class="cal-head"><button onclick="calMove(-1)">‹</button><b id="cal-label"></b><button onclick="calMove(1)">›</button></div>
+          <div class="cal" id="cal"></div>
+        </div>
+        <div>
+          <div class="field"><label>시간 선택</label><div class="slots" id="slots"><p class="empty" style="padding:14px;font-size:13px">날짜를 먼저 선택하세요</p></div></div>
+        </div>
+      </div>
+      <div class="bk-summary" id="bk-summary">코스·날짜·시간을 선택하면 여기에 요약됩니다.</div>
+      <div class="row2">
+        <div class="field"><label>성함</label><input type="text" id="bk-name" placeholder="홍길동"></div>
+        <div class="field"><label>연락처</label><input type="tel" id="bk-phone" placeholder="010-0000-0000"></div>
+      </div>
+      <div class="field"><label>요청사항 <span class="opt">(선택)</span></label><textarea id="bk-memo" placeholder="예: 면접 대비라 신뢰감 있는 이미지를 원해요"></textarea></div>
+      <div class="cbox">
+        <div class="cbox-t"><span class="req">[필수]</span> 개인정보 수집·이용 동의</div>
+        <div class="cbox-b">· 수집·이용 목적: 예약 접수 및 컨설팅 안내·확인
+· 수집 항목: 성함, 연락처
+· 보유·이용 기간: 수집일로부터 1년 (또는 동의 철회 시까지)
+· 동의를 거부할 권리가 있으며, 거부 시 예약 접수가 제한됩니다.</div>
+        <label class="consent"><input type="checkbox" id="bk-consent"><span>위 개인정보 수집·이용에 동의합니다.</span></label>
+      </div>
+      <div class="submitbar"><button class="btn btn-fill" onclick="submitBooking()">예약 확정하기</button></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============ INTAKE ============ -->
+<section class="view" id="view-intake">
+  <div class="sec-pad"><div class="wrap formwrap">
+    <div class="sec-head"><div class="eyebrow">Pre-Consultation</div><h2>사전 문진표</h2>
+      <p>정확한 진단과 맞춤 컨설팅을 위한 질문입니다. 솔직하게 답하실수록 만족도가 높아집니다. (약 3분)</p></div>
+
+    <div class="fcard" id="intake-gate">
+      <div class="ftitle"><span class="n">✓</span>예약자 확인</div>
+      <div class="fsub">사전 문진은 예약하신 분만 작성하실 수 있습니다. 예약 시 입력한 성함·연락처로 확인해 주세요.</div>
+      <div class="row2">
+        <div class="field"><label>성함</label><input type="text" id="ig-name" placeholder="예약자 성함"></div>
+        <div class="field"><label>연락처</label><input type="tel" id="ig-phone" placeholder="010-0000-0000"></div>
+      </div>
+      <div class="submitbar" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button type="button" class="btn btn-fill" onclick="verifyIntake()">확인하고 작성하기</button>
+        <button type="button" class="btn btn-out" onclick="go('booking')">예약하러 가기</button>
+      </div>
+    </div>
+
+    <form id="intake-form" onsubmit="submitIntake(event)" style="display:none">
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">1</span>기본 정보</div>
+        <div class="row2">
+          <div class="field"><label>성함</label><input type="text" name="name" required></div>
+          <div class="field"><label>연락처</label><input type="tel" name="phone"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>연령대</label><div class="chips" data-single="age">
+            <span class="chip">20대</span><span class="chip">30대</span><span class="chip">40대</span><span class="chip">50대+</span></div></div>
+          <div class="field"><label>성별</label><div class="chips" data-single="gender">
+            <span class="chip">여성</span><span class="chip">남성</span><span class="chip">기타</span></div></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>직업 / 업종</label><input type="text" name="job" placeholder="예: 마케팅 / 사무직"></div>
+          <div class="field"><label>방문 경로 <span class="opt">(선택)</span></label><div class="chips" data-single="referral">
+            <span class="chip">지인 추천</span><span class="chip">SNS</span><span class="chip">검색</span><span class="chip">재방문</span></div></div>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">2</span>진단 목적</div>
+        <div class="fsub">가장 중요한 부분입니다 — 목표를 알면 결과지의 콘셉트를 당신 상황에 맞춰 설계합니다.</div>
+        <div class="field"><label>이번 진단을 받는 이유 <span class="opt">(복수 선택)</span></label><div class="chips" data-multi="purpose">
+          <span class="chip">자기관리·호기심</span><span class="chip">취업·면접</span><span class="chip">이직·승진</span><span class="chip">소개팅·데이트</span>
+          <span class="chip">결혼·웨딩</span><span class="chip">프로필·SNS 촬영</span><span class="chip">전문직 이미지</span><span class="chip">기타</span></div></div>
+        <div class="field"><label>진단 후 가장 기대하는 변화 한 가지</label><textarea name="goal" placeholder="예: 피곤해 보인다는 말을 안 듣고 싶어요"></textarea></div>
+        <div class="field"><label>닮고 싶은 이미지나 인물 <span class="opt">(인스타·연예인 등, 선택)</span></label><input type="text" name="icon"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">3</span>라이프스타일 &amp; TPO</div>
+        <div class="fsub">옷장은 일상에 맞아야 합니다. 어디서 무엇을 입는지 알려주세요.</div>
+        <div class="field"><label>가장 자주 있는 상황 <span class="opt">(복수 선택)</span></label><div class="chips" data-multi="tpo">
+          <span class="chip">출근·사무</span><span class="chip">외부 미팅·영업</span><span class="chip">캐주얼·일상</span><span class="chip">행사·격식</span><span class="chip">재택근무</span></div></div>
+        <div class="field"><label>직장 드레스코드</label><div class="chips" data-single="dresscode">
+          <span class="chip">자유</span><span class="chip">세미 정장</span><span class="chip">정장</span><span class="chip">유니폼</span></div></div>
+        <div class="field"><label>옷차림이 가장 신경 쓰이는 자리 <span class="opt">(선택)</span></label><input type="text" name="careabout"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">4</span>현재 스타일 &amp; 컬러 습관</div>
+        <div class="fsub">진단 후 "거봐요, 이 색이 맞았죠" 하고 되짚어드릴 Before 기록입니다.</div>
+        <div class="row2">
+          <div class="field"><label>평소 즐겨 입는 색</label><input type="text" name="lovecolor"></div>
+          <div class="field"><label>피하거나 안 어울린다고 느낀 색</label><input type="text" name="avoidcolor"></div>
+        </div>
+        <div class="field"><label>자주 듣는 말 <span class="opt">(복수 선택)</span></label><div class="chips" data-multi="oftensaid">
+          <span class="chip">화사해 보인다</span><span class="chip">피곤해 보인다</span><span class="chip">나이 들어 보인다</span>
+          <span class="chip">세련돼 보인다</span><span class="chip">잘 모르겠다</span></div></div>
+        <div class="field"><label>선호하는 무드 <span class="opt">(복수 선택)</span></label><div class="chips" data-multi="mood">
+          <span class="chip">미니멀</span><span class="chip">클래식</span><span class="chip">모던시크</span><span class="chip">러블리</span><span class="chip">내추럴</span><span class="chip">캐주얼</span></div></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">5</span>뷰티 &amp; 신체 정보</div>
+        <div class="fsub">진단 정확도를 위한 정보입니다.</div>
+        <div class="row2">
+          <div class="field"><label>평소 메이크업 정도</label><div class="chips" data-single="makeuplevel">
+            <span class="chip">안 함</span><span class="chip">가볍게</span><span class="chip">풀 메이크업</span></div></div>
+          <div class="field"><label>선호 액세서리 금속</label><div class="chips" data-single="metal">
+            <span class="chip">골드</span><span class="chip">실버</span><span class="chip">둘 다</span><span class="chip">잘 모름</span></div></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>현재 헤어 염색 / 컬러 <span class="opt">(선택)</span></label><input type="text" name="hair"></div>
+          <div class="field"><label>키·체형 고민 <span class="opt">(선택)</span></label><input type="text" name="body"></div>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">6</span>옷장 &amp; 쇼핑</div>
+        <div class="field"><label>옷장에서 가장 큰 고민 <span class="opt">(복수 선택)</span></label><div class="chips" data-multi="closet">
+          <span class="chip">안 입는 옷이 많음</span><span class="chip">뭘 사야 할지 모름</span><span class="chip">색 조합이 어려움</span><span class="chip">비슷한 것만 삼</span></div></div>
+        <div class="row2">
+          <div class="field"><label>월 의류 지출대 <span class="opt">(선택)</span></label><div class="chips" data-single="budget">
+            <span class="chip">10만↓</span><span class="chip">10–30만</span><span class="chip">30–50만</span><span class="chip">50만↑</span></div></div>
+          <div class="field"><label>관심 있는 추가 서비스 <span class="opt">(복수)</span></label><div class="chips" data-multi="addon">
+            <span class="chip">옷장 점검</span><span class="chip">동행 쇼핑</span><span class="chip">메이크업</span><span class="chip">프로필 촬영</span><span class="chip">시즌 리터치</span></div></div>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">7</span>진단 당일 준비 &amp; 개인정보 동의</div>
+        <div class="field"><label>다음을 확인했습니다 <span class="opt">(복수 선택)</span></label><div class="chips" data-multi="prep">
+          <span class="chip">노메이크업(또는 진단 전 클렌징)</span><span class="chip">진단 전 염색·탈색 안 함</span><span class="chip">컬러 렌즈 미착용</span></div></div>
+        <div class="field"><label>최근 태닝 여부</label><div class="chips" data-single="tan"><span class="chip">있음</span><span class="chip">없음</span></div></div>
+
+        <div class="cbox">
+          <div class="cbox-t"><span class="req">[필수]</span> 개인정보 수집·이용 동의</div>
+          <div class="cbox-b">· 수집·이용 목적: 퍼스널 컬러·이미지 진단 및 맞춤 결과지 제공
+· 수집 항목: 성함, 연락처, 문진 응답(라이프스타일·스타일·뷰티 정보 등)
+· 보유·이용 기간: 수집일로부터 1년 (또는 동의 철회 시까지)
+· 동의를 거부할 권리가 있으며, 거부 시 진단 진행이 제한됩니다.</div>
+          <label class="consent"><input type="checkbox" name="agreePrivacy" value="동의"><span>위 개인정보 수집·이용에 동의합니다.</span></label>
+        </div>
+
+        <div class="cbox">
+          <div class="cbox-t"><span class="req">[필수]</span> 진단용 얼굴 사진 촬영·보관 동의 <span class="opt">(민감정보 가능)</span></div>
+          <div class="cbox-b">· 수집·이용 목적: 정확한 컬러 진단 및 결과지 작성
+· 수집 항목: 얼굴 사진 (얼굴 분석 시 생체인식정보에 해당할 수 있음)
+· 보유·이용 기간: 수집일로부터 1년 (또는 동의 철회 시까지)
+· 동의를 거부할 권리가 있으며, 거부 시 사진 기반 진단·결과지 제공이 제한됩니다.</div>
+          <label class="consent"><input type="checkbox" name="agreePhoto" value="동의"><span>진단용 얼굴 사진 촬영·보관에 동의합니다.</span></label>
+        </div>
+
+        <div class="cbox">
+          <div class="cbox-t"><span class="sel">[선택]</span> 마케팅·후기·SNS 공개 활용 동의</div>
+          <div class="cbox-b">· 활용 목적: 후기, Before/After 등 홍보·마케팅 자료 활용
+· 활용 항목: 얼굴 사진, 진단 결과 일부
+· 보유·이용 기간: 동의 철회 시까지
+· 선택 항목이며, 동의하지 않아도 진단·결과지 제공에는 영향이 없습니다.</div>
+          <label class="consent"><input type="checkbox" name="agreeMarketing" value="동의"><span>마케팅·공개 활용에 동의합니다. (선택)</span></label>
+        </div>
+      </div>
+
+      <div class="submitbar"><button type="submit" class="btn btn-fill">문진표 제출하기</button></div>
+    </form>
+  </div></div>
+</section>
+
+<!-- ============ WORKSHEET (consultant) ============ -->
+<section class="view" id="view-worksheet">
+  <div class="sec-pad"><div class="wrap formwrap" id="ws-locked" style="display:none">
+    <div class="gate"><div class="eyebrow">Staff Only</div><h2 style="font-family:var(--serif);font-size:22px;margin-top:6px">상담사 인증</h2>
+      <input type="password" id="ws-pin" maxlength="4" placeholder="PIN" inputmode="numeric">
+      <button class="btn btn-fill" onclick="unlock('ws')">잠금 해제</button>
+      <p class="note-mini" style="margin-top:14px">기본 PIN 0615 · 코드에서 변경 가능</p></div>
+  </div>
+  <div class="sec-pad" id="ws-content"><div class="wrap formwrap">
+    <div class="sec-head"><div class="eyebrow">Diagnosis Worksheet · 상담사용</div><h2>진단 작성 시트</h2>
+      <p>드레이핑 결과를 표준 양식으로 기록하세요. 저장하면 결과지에서 바로 불러올 수 있습니다.</p></div>
+    <form id="ws-form" onsubmit="submitWorksheet(event)">
+      <div class="fcard">
+        <div class="ftitle"><span class="n">1</span>고객 &amp; 진단 정보</div>
+        <div class="row2">
+          <div class="field"><label>고객 성함</label><input type="text" name="clientName" required></div>
+          <div class="field"><label>진단일</label><input type="date" name="date"></div>
+        </div>
+        <div class="row3">
+          <div class="field"><label>키 <span class="opt">(선택)</span></label><input type="text" name="height" placeholder="167cm"></div>
+          <div class="field"><label>체중 <span class="opt">(선택)</span></label><input type="text" name="weight" placeholder="55kg"></div>
+          <div class="field"><label>컨설팅 유형</label><input type="text" name="consultType" value="프리미엄 이미지 브랜딩"></div>
+        </div>
+        <div class="field"><label>진단 등급 <span class="opt">(결과지에 노출되는 범위 결정)</span></label>
+          <select name="tier">
+            <option value="VIP">VIP 비즈니스 — 전체 리포트</option>
+            <option value="프리미엄">프리미엄 — 스타일링·헤어·메이크업까지</option>
+            <option value="에센셜">에센셜 — 퍼스널 컬러 중심</option>
+          </select></div>
+        <div class="field"><label>최종 콘셉트(영문) <span class="opt">(결과지 대제목)</span></label><input type="text" name="concept" value="INTELLECTUAL CHIC"></div>
+        <div class="field"><label>한 줄 콘셉트(국문)</label><input type="text" name="conceptKo" value="지적이고 세련된 도시 여성"></div>
+        <div class="field"><label>이미지 키워드 <span class="opt">(공백으로 구분)</span></label><input type="text" name="keywords" value="지적임 세련미 신뢰감 도시적 미니멀 고급스러움"></div>
+        <div class="field"><label>추구미 / 지향 이미지</label><input type="text" name="goalImage" value="지적이고 세련된 도시 여성, 전문성과 신뢰감"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">2</span>드레이핑 진단</div>
+        <div class="fsub">웜/쿨 → 명도 → 채도 순으로 1:1 비교하며 체크합니다.</div>
+        <div class="field"><label>언더톤</label><div class="chips" data-single="undertone"><span class="chip">웜(따뜻)</span><span class="chip">쿨(차가움)</span><span class="chip">뉴트럴</span><span class="chip">경계</span></div></div>
+        <div class="field"><label>명도 (밝기)</label><div class="scale" data-single="value"><span class="chip">매우 밝음</span><span class="chip">밝음</span><span class="chip">중간</span><span class="chip">어두움</span><span class="chip">매우 어두움</span></div></div>
+        <div class="field"><label>채도 (선명도)</label><div class="scale" data-single="chroma"><span class="chip">맑음(클리어)</span><span class="chip">중간</span><span class="chip">탁함(뮤트)</span></div></div>
+        <div class="field"><label>대비감</label><div class="chips" data-single="contrast"><span class="chip">고대비</span><span class="chip">중대비</span><span class="chip">저대비</span></div></div>
+        <div class="field"><label>피부 톤 특성 <span class="opt">(줄바꿈 = 항목)</span></label>
+          <textarea name="skinTone">피부가 밝고 맑은 편
+푸른빛 도는 핑크 베이스
+명도 대비가 크지 않아 부드러운 인상
+채도가 낮은 컬러에서 가장 조화로움</textarea></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">3</span>최종 타입 판정</div>
+        <div class="row2">
+          <div class="field"><label>계절(베이스)</label>
+            <select name="season" onchange="loadSeasonDefaults(this.value)">
+              <option value="">선택</option>
+              <option value="spring">봄 웜 (Spring Warm)</option>
+              <option value="summer">여름 쿨 (Summer Cool)</option>
+              <option value="summerwinter" selected>여름~겨울 쿨 경계</option>
+              <option value="autumn">가을 웜 (Autumn Warm)</option>
+              <option value="winter">겨울 쿨 (Winter Cool)</option>
+            </select></div>
+          <div class="field"><label>세부 타입(16타입)</label><input type="text" name="subtype" placeholder="예: 여름 라이트 / 겨울 딥"></div>
+        </div>
+        <div class="field"><label>세컨드 컬러 <span class="opt">(선택)</span></label><input type="text" name="second" placeholder="예: 겨울 브라이트"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">4</span>베스트 / 워스트 &amp; 컬러 활용</div>
+        <div class="fsub">계절 선택 시 기본 팔레트가 채워집니다. 색을 클릭해 삭제, + 로 추가.</div>
+        <div class="field"><label>베스트 컬러</label><div class="sw-row" id="ws-best"></div></div>
+        <div class="field"><label>워스트 컬러</label><div class="sw-row" id="ws-worst"></div></div>
+        <div class="row3">
+          <div class="field"><label>상의 활용</label><input type="text" name="useTop" value="라이트 톤으로 얼굴 환하게 (아이보리·라벤더·스모키블루)"></div>
+          <div class="field"><label>하의 활용</label><input type="text" name="useBottom" value="네이비·그레이 등 중·저명도로 안정적"></div>
+          <div class="field"><label>포인트 활용</label><input type="text" name="usePoint" value="더스티 로즈·쿨 블루로 감각적인 포인트"></div>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">5</span>인상 요소 분석 &amp; 얼굴</div>
+        <div class="fsub">드레이핑 후 얼굴 인상을 별점으로 기록합니다. (별 클릭)</div>
+        <div class="field"><label>인상 요소</label>
+          <div class="rates">
+            <div class="rate" data-label="직선감"><span>직선감</span><span class="st"></span><input type="hidden" name="rStraight" value="4"></div>
+            <div class="rate" data-label="곡선감"><span>곡선감</span><span class="st"></span><input type="hidden" name="rCurve" value="2"></div>
+            <div class="rate" data-label="성숙도"><span>성숙도</span><span class="st"></span><input type="hidden" name="rMature" value="4"></div>
+            <div class="rate" data-label="세련미"><span>세련미</span><span class="st"></span><input type="hidden" name="rChic" value="5"></div>
+            <div class="rate" data-label="친근감"><span>친근감</span><span class="st"></span><input type="hidden" name="rFriendly" value="3"></div>
+            <div class="rate" data-label="신뢰감"><span>신뢰감</span><span class="st"></span><input type="hidden" name="rTrust" value="5"></div>
+          </div></div>
+        <div class="row2">
+          <div class="field"><label>얼굴형</label><input type="text" name="faceShape" value="긴형 ~ 계란형 (Long Oval)"></div>
+          <div class="field"><label>얼굴 이미지 한 줄</label><input type="text" name="face" value="직선과 곡선이 균형 있게 공존, 차분·지적"></div>
+        </div>
+        <div class="field"><label>얼굴 구조 특징 <span class="opt">(줄바꿈 = 항목)</span></label>
+          <textarea name="faceStructure">깔끔한 페이스라인
+안정적인 이목구비 배치
+적당한 직선감
+도시적이고 세련된 분위기
+미니멀 스타일 적합</textarea></div>
+        <div class="field"><label>추천 눈썹</label><input type="text" name="brow" value="상승형 (Soft Lift Brow) · 자연스러운 일자형 아치"></div>
+        <div class="field"><label>고객님만의 강점 <span class="opt">(줄바꿈 = 항목)</span></label>
+          <textarea name="strengths">차분함과 전문성을 동시에 전달
+과한 꾸밈 없이 존재감
+도시적이고 세련된 인상
+장기적인 퍼스널 브랜딩에 유리
+고급스러운 이미지 구축 가능</textarea></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">6</span>체형 분석</div>
+        <div class="field"><label>체형 타입</label><input type="text" name="bodyType" value="Natural Frame + X Silhouette"></div>
+        <div class="field"><label>체형 포인트 <span class="opt">(줄바꿈 = 항목)</span></label>
+          <textarea name="bodyPoint">어깨와 골반 밸런스 우수
+허리 라인 자연 형성
+내추럴 골격의 여유로운 프레임
+상·하체 비율 안정적
+직선과 곡선이 균형 잡힌 실루엣</textarea></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">7</span>헤어 브랜딩</div>
+        <div class="row3">
+          <div class="field"><label>현재 이미지</label><input type="text" name="hairCurrent" value="Short Bob"></div>
+          <div class="field"><label>추천 이미지</label><input type="text" name="hairRecommend" value="Intellectual Chic Bob"></div>
+          <div class="field"><label>추천 길이</label><input type="text" name="hairLength" value="턱선 ~ 쇄골 라인"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>추천 스타일 <span class="opt">(줄바꿈)</span></label>
+            <textarea name="hairBest">시크 단발 (Chic Bob)
+롱보브 (Long Bob)
+슬릭 보브 (Sleek Bob)
+C컬 보브 (C-curl Bob)
+사이드뱅 / 센터파트</textarea></div>
+          <div class="field"><label>비추천 스타일 <span class="opt">(줄바꿈)</span></label>
+            <textarea name="hairAvoid">과도한 히피펌
+굵은 웨이브 장발
+무거운 풀뱅
+과한 레이어드
+볼륨 과다 스타일</textarea></div>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">8</span>메이크업 가이드</div>
+        <div class="row2">
+          <div class="field"><label>베이스</label><input type="text" name="mkBase" value="맑고 깨끗한 핑크 베이스 · 촉촉한 윤광"></div>
+          <div class="field"><label>아이</label><input type="text" name="mkEye" value="음영감 있는 모브·브라운 · 또렷한 아이라인"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>눈썹</label><input type="text" name="mkBrow" value="자연스러운 일자형 아치 · 채도 낮은 브라운"></div>
+          <div class="field"><label>치크</label><input type="text" name="mkCheek" value="채도 낮은 로즈·모브 · 은은한 블러셔"></div>
+        </div>
+        <div class="field"><label>립</label><input type="text" name="mkLip" value="MLBB / 로즈·모브 · 차분한 채도, 선영한 발색"></div>
+        <div class="field"><label>기존 화장품 점검 메모</label><input type="text" name="makeupCheck" placeholder="예: 현재 립 컬러 워스트 → 로즈 계열 추천"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">9</span>의류 스타일 가이드</div>
+        <div class="field"><label>상의 — 추천 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="topBest">화이트 셔츠 (클래식·단정)
+보트넥·오픈카라·U넥
+오프숄더 니트 / 미니멀 블랙 톱
+솔리드·세로 스트라이프 패턴</textarea></div>
+        <div class="row2">
+          <div class="field"><label>넥라인 BEST / AVOID</label><input type="text" name="neckline" value="보트넥·스퀘어넥·오픈카라 / 답답한 터틀넥·과한 프릴"></div>
+          <div class="field"><label>상의 소재</label><input type="text" name="topMaterial" value="추천: 코튼·린넨·실크블렌드·니트·트위드 / 비추천: 얇은 시스루·과한 광택"></div>
+        </div>
+        <div class="field"><label>하의 — 추천 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="bottomBest">슬랙스 (깔끔·전문적)
+와이드 / 세미 와이드 팬츠
+H라인 스커트
+하이웨이스트·일자핏 (다리 길어 보이게)</textarea></div>
+        <div class="field"><label>하의 소재 / 컬러</label><input type="text" name="bottomMaterial" value="울혼방·코튼·드레이프 소재 / 블랙·그레이·베이지·네이비"></div>
+        <div class="field"><label>아우터 — 추천 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="outerBest">오버핏 블레이저
+싱글 롱코트
+라운드넥 트위드 자켓
+미니멀 가디건</textarea></div>
+        <div class="field"><label>아우터 소재</label><input type="text" name="outerMaterial" value="추천: 울·캐시미어·코튼·트위드·고밀도 폴리 / 비추천: 광택·얇은 니트·합성"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">10</span>액세서리 가이드</div>
+        <div class="field"><label>추천 금속</label><div class="chips" data-single="metalRec"><span class="chip on">실버</span><span class="chip">골드</span><span class="chip">화이트골드</span><span class="chip">둘 다</span></div></div>
+        <div class="field"><label>항목별 추천 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="accessory">시계: 까르띠에 탱크형·직사각 프레임, 얇은 스트랩
+목걸이: 얇고 간결한 체인·심플 펜던트
+귀걸이: 작은 스터드·미니 후프
+가방: 토트·구조적 쉐입 (블랙/토프/크림)
+벨트: 깔끔한 버클 (블랙·브라운)
+안경: 직사각·슬림 프레임 (블랙/실버)</textarea></div>
+        <div class="field"><label>소재 추천 / 비추천</label><input type="text" name="accMaterial" value="추천: 실버·화이트골드(매트)·가죽·진주·천연석 / 비추천: 반짝이는 골드·플라스틱·인조진주"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">11</span>뷰티 업그레이드</div>
+        <div class="row3">
+          <div class="field"><label>스킨</label><input type="text" name="beautySkin" value="물광관리·LDM·스킨부스터·수분집중"></div>
+          <div class="field"><label>눈썹</label><input type="text" name="beautyBrow" value="상승형 유지·결 표현·3~4주 정리"></div>
+          <div class="field"><label>헤어</label><input type="text" name="beautyHair" value="시스루 보브·다크 애쉬 브라운·윤기 관리"></div>
+        </div>
+        <div class="field"><label>추천 / 비추천 시술</label><input type="text" name="procedure" value="추천: 스킨부스터·리쥬란·LDM·물광·두피케어 / 비추천: 과도한 필러·윤곽시술·밝은 탈색"></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">12</span>3개월 이미지 관리 플랜</div>
+        <div class="field"><label>Month 1 — 기초 다지기 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="month1">눈썹 정비 (디자인 정착·3~4주 주기)
+컬러·메이크업 정착 (퍼스널 컬러 활용)
+헤어 정리 / 옷장 웜톤 의류 정리</textarea></div>
+        <div class="field"><label>Month 2 — 핵심 아이템 업그레이드 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="month2">아우터 구매 (블레이저·롱코트)
+가방·슈즈 보강 (구조적·블랙/토프)
+액세서리 정비 / 대표 코디 3세트 완성</textarea></div>
+        <div class="field"><label>Month 3 — 전체 이미지 완성 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="month3">전체 스타일 점검 / TPO 완성
+프로필·이미지 촬영
+SNS 이미지 통일 / 루틴화</textarea></div>
+      </div>
+
+      <div class="fcard">
+        <div class="ftitle"><span class="n">13</span>스타일링 종합 &amp; 메모</div>
+        <div class="field"><label>핵심 스타일링 제안 <span class="opt">(줄바꿈)</span></label>
+          <textarea name="styling">고명도 쿨톤 톤온톤 코디
+구조적 실루엣 / 미니멀 스타일
+블랙은 얼굴 근처 피하고 하의·포인트로
+실버 액세서리로 도시적 마무리</textarea></div>
+        <div class="field"><label>상담사 코멘트</label><textarea name="notes"></textarea></div>
+      </div>
+
+      <div class="submitbar"><button type="submit" class="btn btn-fill">진단 저장하기</button></div>
+    </form>
+  </div></div>
+</section>
+
+<!-- ============ RESULT SHEET ============ -->
+<section class="view" id="view-result">
+  <div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Client Result Sheet</div><h2>고객 결과지</h2>
+      <p>저장된 진단을 선택하면 깔끔한 결과지가 생성됩니다. 그대로 인쇄하거나 PDF로 저장해 전달하세요.</p></div>
+    <div class="rs-pick">
+      <select id="rs-select" onchange="renderSheet(this.value)"><option value="">진단 기록 선택…</option></select>
+    </div>
+    <div id="rs-output"><p class="empty">저장된 진단을 선택하세요. (진단 시트에서 먼저 저장)</p></div>
+    <div class="rs-actions" id="rs-actions" style="display:none">
+      <button class="btn btn-fill" onclick="downloadPDF()">PDF 다운로드</button>
+      <button class="btn btn-out" onclick="window.print()">인쇄</button>
+      <button class="btn btn-out" onclick="go('worksheet')">진단 수정</button>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============ RECORDS (admin) ============ -->
+<section class="view" id="view-records">
+  <div class="sec-pad"><div class="wrap formwrap" id="rec-locked" style="display:none">
+    <div class="gate"><div class="eyebrow">Staff Only</div><h2 style="font-family:var(--serif);font-size:22px;margin-top:6px">관리자 인증</h2>
+      <input type="password" id="rec-pin" maxlength="4" placeholder="PIN" inputmode="numeric">
+      <button class="btn btn-fill" onclick="unlock('rec')">잠금 해제</button>
+      <p class="note-mini" style="margin-top:14px">기본 PIN 0615</p></div>
+  </div>
+  <div class="sec-pad" id="rec-content"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Records · 관리자</div><h2>예약 · 문진 · 진단 기록</h2></div>
+    <div class="tabs">
+      <button class="on" onclick="recTab('bookings',this)">예약</button>
+      <button onclick="recTab('intakes',this)">사전 문진</button>
+      <button onclick="recTab('diagnoses',this)">진단</button>
+    </div>
+    <div id="rec-list"></div>
+  </div></div>
+</section>
+
+<div class="foot"><div class="b">PARK.D's COLOR LAB</div>
+  <small>퍼스널 컬러 · 이미지 브랜딩 컨설팅<br>© 2026 PARK.D's COLOR LAB. All rights reserved.</small></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- storage (works in sandbox via in-memory fallback, persists on your domain via localStorage) ---------- */
+const Store=(()=>{let mem={},ls=false;try{localStorage.setItem('__t','1');localStorage.removeItem('__t');ls=true}catch(e){}
+  return{get(k){try{if(ls){const v=localStorage.getItem(k);return v?JSON.parse(v):null}}catch(e){}return mem[k]??null},
+  set(k,v){try{if(ls)localStorage.setItem(k,JSON.stringify(v))}catch(e){}mem[k]=v}}})();
+const DB={get:(k)=>Store.get('pdcl_'+k)||[],set:(k,v)=>Store.set('pdcl_'+k,v),
+  add(k,o){const a=this.get(k);o.id=Date.now()+''+Math.floor(Math.random()*99);o.createdAt=new Date().toISOString();a.unshift(o);this.set(k,a);return o},
+  del(k,id){this.set(k,this.get(k).filter(x=>x.id!==id))}};
+const STAFF_PIN='0615';
+
+/* ---------- services ---------- */
+const SERVICES=[
+ {id:'essential',ko:'에센셜',en:'ESSENTIAL',price:'9.9만원',dur:'약 60분',
+  desc:'정밀 진단 + 디지털 결과지 + 휴대용 컬러카드',
+  feat:['16타입 정밀 드레이핑 진단','베스트/워스트 컬러 분석','완성형 디지털 결과지(당일)','휴대용 컬러 스와치 카드']},
+ {id:'premium',ko:'프리미엄',en:'PREMIUM',price:'19.9만원',dur:'약 120분',featured:true,
+  desc:'진단 + 1:1 스타일링 + 옷장 점검 + 3개월 코칭',
+  feat:['에센셜 전체 포함','체형·얼굴 이미지 분석','1:1 스타일링 세션','옷장 점검(keep/정리/구매)','3개월 이미지 코칭']},
+ {id:'vip',ko:'VIP 비즈니스',en:'VIP',price:'39.9만원~',dur:'반일 코스',
+  desc:'프로필 촬영 + 캡슐 워드로브 + 분기 리터치',
+  feat:['프리미엄 전체 포함','비즈니스 프로필 촬영 디렉팅','컬러 맞춤 캡슐 워드로브','동행 쇼핑','분기 리터치 멤버십']}
+];
+
+/* ---------- season palettes ---------- */
+const SEASONS={
+ spring:{label:'봄 웜 (Spring Warm)',ko:'밝고 따뜻한 컬러가 생기를 살려주는 타입',
+   best:['#FFB7A0','#FFD9A0','#F4E1A0','#BFE0A0','#FFF2D6','#E8B97A','#FF9E7A'],
+   worst:['#3A3A3A','#1A1A1A','#5E5B33','#6E4B7A','#444B6E','#7A7A7A'],
+   metal:'골드',neutral:'아이보리·카멜·웜 베이지',
+   styling:['밝고 선명한 웜톤 톤온톤','너무 어둡거나 탁한 색 피하기','얼굴 근처에 코랄·피치 포인트'],
+   makeup:'코랄·피치 립, 웜 브라운 섀도, 생기 있는 혈색'},
+ summer:{label:'여름 쿨 (Summer Cool)',ko:'맑고 부드러운 쿨톤이 가장 우아한 타입',
+   best:['#F2ECDD','#EDC9D6','#D8CCE6','#AFC4DD','#9FB6D6','#C9B6D0','#8FA9C9'],
+   worst:['#D98324','#D6A92B','#A33B2A','#5E5B33','#3E2B1E','#111111'],
+   metal:'실버',neutral:'소프트 그레이·라벤더·소프트 블루',
+   styling:['맑고 부드러운 쿨 파스텔','저채도 톤온톤으로 세련되게','명도 대비는 부드럽게'],
+   makeup:'로즈·모브 립, 라벤더·핑크 섀도, 채도 낮은 블러셔'},
+ summerwinter:{label:'여름~겨울 쿨 경계',ko:'맑고 시원한 쿨 컬러가 지적이고 세련된 인상을 극대화',
+   best:['#F2ECDD','#EDC9D6','#D8CCE6','#AFC4DD','#6E9BC5','#243A5E','#2E3138'],
+   worst:['#D98324','#D6A92B','#A33B2A','#5E5B33','#3E2B1E','#111111'],
+   metal:'실버 · 화이트골드',neutral:'아이보리·그레이·네이비',
+   styling:['고명도 쿨 컬러를 상의·얼굴 근처에','네이비·차콜은 하의로 안정감','블랙은 포인트로만, 얼굴 근처 지양','구조적 실루엣 + 미니멀'],
+   makeup:'로즈·모브 MLBB 립, 음영 있는 쿨 섀도, 깔끔한 피부 표현'},
+ autumn:{label:'가을 웜 (Autumn Warm)',ko:'깊고 따뜻한 컬러가 고급스러움을 더하는 타입',
+   best:['#C9952F','#A8472E','#6E6A3A','#B98A4E','#C46A4A','#5A3B28','#8A6A3A'],
+   worst:['#EDC9D6','#AFC4DD','#D8CCE6','#C0246B','#FFFFFF','#9FB6D6'],
+   metal:'골드',neutral:'카멜·올리브·딥 브라운',
+   styling:['저채도 깊은 웜톤','어스 톤 톤온톤','텍스처감 있는 소재로 고급스럽게'],
+   makeup:'브릭·테라코타 립, 카키·브라운 섀도, 매트한 피부'},
+ winter:{label:'겨울 쿨 (Winter Cool)',ko:'선명하고 시원한 컬러가 또렷한 인상을 만드는 타입',
+   best:['#FFFFFF','#C0246B','#2347A0','#15203F','#1A1A1A','#C01E32','#0E6B5A'],
+   worst:['#E8B97A','#C9952F','#BFE0A0','#FFD9A0','#B98A4E','#6E6A3A'],
+   metal:'실버 · 화이트골드',neutral:'트루 화이트·네이비·블랙',
+   styling:['고대비 선명한 쿨 컬러','화이트·블랙 모노톤 시크','채도 높은 포인트 컬러 1개'],
+   makeup:'푸시아·레드 립, 또렷한 아이라인, 매끈한 피부'}
+};
+
+/* ---------- navigation ---------- */
+function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  document.getElementById('navlinks').classList.remove('open');window.scrollTo(0,0);
+  if(id==='result')fillResultSelect();if(id==='records')renderRecords();
+  if(id==='worksheet')checkLock('ws');if(id==='records')checkLock('rec');
+  if(id==='intake')showIntakeGate();}
+
+/* ---------- chips ---------- */
+document.addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;const box=c.parentElement;
+  if(box.dataset.single!==undefined||box.classList.contains('scale')&&box.dataset.single!==undefined){}
+  if(box.hasAttribute('data-single')){box.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');}
+  else if(box.hasAttribute('data-multi')){c.classList.toggle('on');}});
+function chipVal(box){return box.hasAttribute('data-single')?(box.querySelector('.chip.on')?.textContent||''):
+  [...box.querySelectorAll('.chip.on')].map(x=>x.textContent);}
+function collectChips(form){const o={};form.querySelectorAll('[data-single],[data-multi]').forEach(b=>{
+  o[b.dataset.single||b.dataset.multi]=chipVal(b);});return o;}
+
+/* ---------- toast ---------- */
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
+
+/* ---------- render services ---------- */
+function renderTiers(){document.getElementById('tiers').innerHTML=SERVICES.map(s=>`
+  <div class="tier ${s.featured?'feat':''}">${s.featured?'<div class="badge">MOST POPULAR</div>':''}
+    <div class="ten">${s.en}</div><h3>${s.ko}</h3>
+    <div class="price">${s.price}</div><div class="dur">${s.dur}</div>
+    <div class="desc">${s.desc}</div>
+    <ul>${s.feat.map(f=>`<li>${f}</li>`).join('')}</ul>
+    <button class="btn ${s.featured?'btn-fill':'btn-out'}" onclick="bookService('${s.id}')">이 코스로 예약</button>
+  </div>`).join('');}
+function renderBkServices(){document.getElementById('bk-services').innerHTML=SERVICES.map(s=>
+  `<span class="chip" data-sid="${s.id}" onclick="pickService('${s.id}')">${s.ko} · ${s.price}</span>`).join('');}
+let bk={sid:null,date:null,time:null};
+function bookService(id){go('booking');pickService(id);}
+function pickService(id){bk.sid=id;document.querySelectorAll('#bk-services .chip').forEach(c=>c.classList.toggle('on',c.dataset.sid===id));bkSummary();}
+
+/* ---------- calendar ---------- */
+let calDate=new Date();calDate.setDate(1);
+const SLOTS=['10:00','12:00','14:00','16:00','18:00','20:00'];
+function calMove(d){calDate.setMonth(calDate.getMonth()+d);renderCal();}
+function renderCal(){const y=calDate.getFullYear(),m=calDate.getMonth();
+  document.getElementById('cal-label').textContent=`${y}. ${String(m+1).padStart(2,'0')}`;
+  const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  const today=new Date();today.setHours(0,0,0,0);
+  let h=['일','월','화','수','목','금','토'].map(d=>`<div class="dow">${d}</div>`).join('');
+  for(let i=0;i<first;i++)h+='<div></div>';
+  for(let d=1;d<=days;d++){const dt=new Date(y,m,d);const key=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const past=dt<today;const sel=bk.date===key;
+    h+=`<div class="day ${past?'disabled':'able'} ${sel?'sel':''}" ${past?'':`onclick="pickDate('${key}')"`}>${d}</div>`;}
+  document.getElementById('cal').innerHTML=h;}
+function pickDate(key){bk.date=key;bk.time=null;renderCal();renderSlots();bkSummary();}
+function renderSlots(){const booked=DB.get('bookings').filter(b=>b.date===bk.date).map(b=>b.time);
+  document.getElementById('slots').innerHTML=SLOTS.map(t=>{const bd=booked.includes(t);
+    return `<div class="slot ${bd?'booked':'able'} ${bk.time===t?'sel':''}" ${bd?'':`onclick="pickTime('${t}')"`}>${t}</div>`;}).join('');}
+function pickTime(t){bk.time=t;renderSlots();bkSummary();}
+function bkSummary(){const s=SERVICES.find(x=>x.id===bk.sid);
+  document.getElementById('bk-summary').innerHTML=(s||bk.date||bk.time)?
+    `<span>${s?s.ko+' ('+s.price+')':'코스 미선택'}</span> · <span>${bk.date||'날짜 미선택'}</span> · <span>${bk.time||'시간 미선택'}</span>`:
+    '코스·날짜·시간을 선택하면 여기에 요약됩니다.';}
+function submitBooking(){const name=document.getElementById('bk-name').value.trim();
+  if(!bk.sid){toast('코스를 선택해 주세요');return;}if(!bk.date||!bk.time){toast('날짜와 시간을 선택해 주세요');return;}
+  if(!name){toast('성함을 입력해 주세요');return;}
+  if(!document.getElementById('bk-consent').checked){toast('개인정보 수집·이용 동의(필수)에 체크해 주세요');return;}
+  const created=DB.add.call(DB,'bookings',{service:SERVICES.find(x=>x.id===bk.sid).ko,date:bk.date,time:bk.time,
+    name,phone:document.getElementById('bk-phone').value,memo:document.getElementById('bk-memo').value,privacyConsent:'동의'});
+  lastBooking=created;
+  toast('예약이 확정되었습니다 ✓');
+  document.getElementById('bk-name').value='';document.getElementById('bk-phone').value='';document.getElementById('bk-memo').value='';
+  document.getElementById('bk-consent').checked=false;
+  bk={sid:null,date:null,time:null};document.querySelectorAll('#bk-services .chip').forEach(c=>c.classList.remove('on'));
+  renderCal();document.getElementById('slots').innerHTML='<p class="empty" style="padding:14px;font-size:13px">날짜를 먼저 선택하세요</p>';
+  document.getElementById('bk-summary').innerHTML=`✓ <span>예약이 확정되었습니다.</span> 이어서 <a href="#" onclick="startIntakeFromBooking();return false" style="color:var(--brown-d);font-weight:600;text-decoration:underline">사전 문진 작성하기 →</a>`;}
+function startIntakeFromBooking(){if(lastBooking){go('intake');openIntake(lastBooking);}}
+
+/* ---------- intake (booking-verified) ---------- */
+let intakeOK=false,lastBooking=null;
+function showIntakeGate(){intakeOK=false;window._intakeBooking=null;
+  document.getElementById('intake-gate').style.display='block';
+  document.getElementById('intake-form').style.display='none';}
+function normPhone(p){return(p||'').replace(/\D/g,'');}
+function findBooking(name,phone){const ph=normPhone(phone);const nm=(name||'').trim();
+  return DB.get('bookings').find(b=>(ph&&normPhone(b.phone)===ph)||(nm&&(b.name||'').trim()===nm));}
+function verifyIntake(){const n=document.getElementById('ig-name').value.trim();const p=document.getElementById('ig-phone').value.trim();
+  if(!n&&!p){toast('성함 또는 연락처를 입력해 주세요');return;}
+  const b=findBooking(n,p);
+  if(!b){toast('예약 내역을 찾을 수 없습니다. 먼저 예약해 주세요');return;}
+  openIntake(b);}
+function openIntake(b){intakeOK=true;window._intakeBooking=b||null;
+  document.getElementById('intake-gate').style.display='none';
+  const f=document.getElementById('intake-form');f.style.display='block';
+  if(b){if(f.name)f.name.value=b.name||'';if(f.phone)f.phone.value=b.phone||'';}
+  window.scrollTo(0,0);toast('확인되었습니다 ✓ 문진을 작성해 주세요');}
+function submitIntake(e){e.preventDefault();if(!intakeOK){toast('예약자 확인이 필요합니다');return;}
+  const f=e.target;const o={};
+  f.querySelectorAll('input[name],textarea[name]').forEach(i=>{if(i.type==='checkbox')o[i.name]=i.checked?i.value:'';else o[i.name]=i.value;});
+  Object.assign(o,collectChips(f));
+  if(o.agreePrivacy!=='동의'||o.agreePhoto!=='동의'){toast('필수 개인정보 동의 두 가지에 모두 체크해 주세요');return;}
+  const b=window._intakeBooking;if(b)o.booking=`${b.service||''} ${b.date||''} ${b.time||''}`.trim();
+  DB.add.call(DB,'intakes',o);toast('문진표가 제출되었습니다 ✓');f.reset();
+  f.querySelectorAll('.chip.on').forEach(c=>c.classList.remove('on'));showIntakeGate();window.scrollTo(0,0);}
+
+/* ---------- worksheet ---------- */
+let wsBest=[],wsWorst=[];
+function loadSeasonDefaults(s){if(!s||!SEASONS[s])return;wsBest=[...SEASONS[s].best];wsWorst=[...SEASONS[s].worst];renderSwatches();
+  const f=document.getElementById('ws-form');if(!f.styling.value.trim())f.styling.value=SEASONS[s].styling.join('\n');}
+function renderSwatches(){const mk=(arr,which)=>arr.map((c,i)=>`<div class="sw" style="background:${c}" onclick="rmSw('${which}',${i})"><span class="x">×</span></div>`).join('')
+   +`<label class="sw-add">+<input type="color" style="display:none" onchange="addSw('${which}',this.value)"></label>`;
+  document.getElementById('ws-best').innerHTML=mk(wsBest,'best');
+  document.getElementById('ws-worst').innerHTML=mk(wsWorst,'worst');
+  document.querySelectorAll('.sw-add input').forEach(i=>i.parentElement.onclick=()=>i.click());}
+function addSw(w,v){(w==='best'?wsBest:wsWorst).push(v);renderSwatches();}
+function rmSw(w,i){(w==='best'?wsBest:wsWorst).splice(i,1);renderSwatches();}
+function submitWorksheet(e){e.preventDefault();const f=e.target;const o={best:wsBest,worst:wsWorst};
+  f.querySelectorAll('input[name],textarea[name],select[name]').forEach(i=>o[i.name]=i.value);
+  Object.assign(o,collectChips(f));DB.add.call(DB,'diagnoses',o);toast('진단이 저장되었습니다 ✓ 결과지에서 확인하세요');
+  f.reset();loadSeasonDefaults(f.season.value||'summerwinter');initStars();window.scrollTo(0,0);}
+
+/* ---------- result sheet ---------- */
+function fillResultSelect(){const sel=document.getElementById('rs-select');const ds=DB.get('diagnoses');
+  sel.innerHTML='<option value="">진단 기록 선택…</option>'+ds.map(d=>`<option value="${d.id}">${d.clientName||'무명'} · ${d.subtype||d.concept||''} · ${(d.date||d.createdAt||'').slice(0,10)}</option>`).join('');}
+function liList(v){const a=(v||'').split('\n').map(s=>s.trim()).filter(Boolean);
+  return a.length?'<ul class="mini-list">'+a.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'<p class="empty" style="padding:4px 0">-</p>';}
+function starsStr(n){n=Math.max(0,Math.min(5,+n||0));return '★'.repeat(n)+'☆'.repeat(5-n);}
+function initStars(){document.querySelectorAll('#ws-form .rate').forEach(r=>{const inp=r.querySelector('input');const st=r.querySelector('.st');
+  function draw(){const v=+inp.value||0;st.innerHTML=[1,2,3,4,5].map(i=>`<i class="${i<=v?'on':''}" data-v="${i}">★</i>`).join('');}
+  st.onclick=e=>{const i=e.target.closest('i');if(!i)return;inp.value=i.dataset.v;draw();};draw();});}
+
+let currentDiag=null;
+function renderSheet(id){const out=document.getElementById('rs-output');const act=document.getElementById('rs-actions');
+  if(!id){out.innerHTML='<p class="empty">저장된 진단을 선택하세요.</p>';act.style.display='none';currentDiag=null;return;}
+  const d=DB.get('diagnoses').find(x=>x.id===id);if(!d)return;currentDiag=d;act.style.display='flex';
+  const se=SEASONS[d.season]||{};const best=(d.best&&d.best.length?d.best:se.best)||[];const worst=(d.worst&&d.worst.length?d.worst:se.worst)||[];
+  const kw=(d.keywords||d.concept||'').split(/\s+/).filter(Boolean);
+  const rates=[['직선감',d.rStraight],['곡선감',d.rCurve],['성숙도',d.rMature],['세련미',d.rChic],['친근감',d.rFriendly],['신뢰감',d.rTrust]];
+  const RANK={'에센셜':1,'프리미엄':2,'VIP':3,'VIP 비즈니스':3};const rank=RANK[d.tier]||3;
+  const tierLabel={1:'에센셜',2:'프리미엄',3:'VIP 비즈니스'}[rank];
+  const block=(title,en,inner)=>`<div class="sb-block"><h3>${title}<span class="en">${en}</span></h3>${inner}</div>`;
+  const kv=rows=>`<dl class="kv">${rows.filter(Boolean).join('')}</dl>`;
+  const r=(l,v)=>v?`<dt>${l}</dt><dd>${esc(v)}</dd>`:'';
+
+  const secSummary=block('진단 요약','SUMMARY',
+    kv([r('코스',tierLabel),r('계절 베이스',se.label||d.season),r('세부 타입',d.subtype),r('세컨드 컬러',d.second),
+        r('키 / 체중',[d.height,d.weight].filter(Boolean).join(' / ')),r('체형',d.bodyType),
+        r('추천 금속',d.metalRec||se.metal),r('추구미',d.goalImage)])
+    +(kw.length?`<div class="lk" style="margin-top:14px">${kw.map(k=>`<span>${esc(k)}</span>`).join('')}</div>`:''));
+
+  const secColor=block('퍼스널 컬러','PERSONAL COLOR',
+    (d.skinTone?`<div style="margin-bottom:14px">${liList(d.skinTone)}</div>`:'')
+    +`<p style="font-size:12px;color:var(--muted);margin:0 0 6px">BEST · 가장 잘 어울리는 컬러</p>
+      <div class="pal">${best.map(c=>`<div class="c" style="background:${c}"></div>`).join('')||'-'}</div>
+      <p style="font-size:12px;color:var(--muted);margin:16px 0 6px">WORST · 피해야 할 컬러</p>
+      <div class="pal pal-worst">${worst.map(c=>`<div class="c" style="background:${c}"></div>`).join('')||'-'}</div>`
+    +`<dl class="kv" style="margin-top:16px">${[r('상의',d.useTop),r('하의',d.useBottom),r('포인트',d.usePoint)].join('')}</dl>`);
+
+  const secImpression=rank>=2?block('인상 요소 분석','IMPRESSION',
+    `<div style="margin-bottom:6px">${rates.map(([l,v])=>v?`<div class="rate-row"><span>${l}</span><span class="rstars">${starsStr(v)}</span></div>`:'').join('')}</div>`
+    +`<div class="twocol" style="margin-top:16px">
+        <div><p style="font-size:12px;color:var(--muted);margin-bottom:6px">얼굴 구조 특징</p>${liList(d.faceStructure)}</div>
+        <div><p style="font-size:12px;color:var(--muted);margin-bottom:6px">고객님만의 강점</p>${liList(d.strengths)}</div>
+      </div>`
+    +kv([r('얼굴형',d.faceShape),r('추천 눈썹',d.brow)])):'';
+
+  const secBody=(rank>=2&&d.bodyPoint)?block('체형 분석','BODY SHAPE',kv([r('체형 타입',d.bodyType)])+liList(d.bodyPoint)):'';
+
+  const secHair=rank>=2?block('헤어 브랜딩','HAIR',
+    kv([r('현재 → 추천',[d.hairCurrent,d.hairRecommend].filter(Boolean).join('  →  ')),r('추천 길이',d.hairLength)])
+    +`<div class="twocol" style="margin-top:14px">
+        <div><p style="font-size:12px;color:var(--muted);margin-bottom:6px">추천 스타일</p>${liList(d.hairBest)}</div>
+        <div><p style="font-size:12px;color:var(--muted);margin-bottom:6px">비추천 스타일</p>${liList(d.hairAvoid)}</div>
+      </div>`):'';
+
+  const secMakeup=rank>=2?block('메이크업 가이드','MAKEUP',
+    kv([r('베이스',d.mkBase),r('아이',d.mkEye),r('눈썹',d.mkBrow),r('치크',d.mkCheek),r('립',d.mkLip),r('화장품 점검',d.makeupCheck)])):'';
+
+  const secStyle=rank>=2?block('의류 스타일','STYLE',
+    `<p style="font-size:12px;color:var(--muted);margin-bottom:6px">상의</p>${liList(d.topBest)}
+     ${kv([r('넥라인',d.neckline),r('소재',d.topMaterial)])}
+     <p style="font-size:12px;color:var(--muted);margin:14px 0 6px">하의</p>${liList(d.bottomBest)}
+     ${kv([r('소재·컬러',d.bottomMaterial)])}
+     <p style="font-size:12px;color:var(--muted);margin:14px 0 6px">아우터</p>${liList(d.outerBest)}
+     ${kv([r('소재',d.outerMaterial)])}`):'';
+
+  const secAcc=rank>=3?block('액세서리','ACCESSORY',
+    kv([r('추천 금속',d.metalRec)])+liList(d.accessory)+kv([r('소재',d.accMaterial)])):'';
+
+  const secBeauty=(rank>=3&&(d.beautySkin||d.procedure))?block('뷰티 업그레이드','BEAUTY',
+    kv([r('스킨',d.beautySkin),r('눈썹',d.beautyBrow),r('헤어',d.beautyHair),r('시술 추천/비추천',d.procedure)])):'';
+
+  const secPlan=(rank>=3&&(d.month1||d.month2||d.month3))?block('3개월 이미지 관리 플랜','PLAN',
+    `<div class="plan">
+      <div class="pcol"><span class="ph">MONTH 1</span><h4>기초 다지기</h4>${liList(d.month1)}</div>
+      <div class="pcol"><span class="ph">MONTH 2</span><h4>핵심 아이템 업그레이드</h4>${liList(d.month2)}</div>
+      <div class="pcol"><span class="ph">MONTH 3</span><h4>전체 이미지 완성</h4>${liList(d.month3)}</div>
+    </div>`):'';
+
+  const secStyling=(rank>=2&&d.styling)?block('스타일링 종합','STYLING',liList(d.styling)):'';
+  const secNotes=d.notes?block('상담사 코멘트','NOTE',`<p style="font-size:14px;color:var(--muted)">${esc(d.notes)}</p>`):'';
+
+  const formula=rank>=2?`<div class="formula">
+      <div class="eq">${(kw.slice(0,4).join('  +  '))||'지적인 인상  +  구조적 스타일  +  밝은 쿨톤  +  고급스러운 디테일'}</div>
+      <div class="res">= ${esc(d.concept||'INTELLECTUAL CHIC')}</div></div>`:'';
+
+  const upsell=rank<3?`<div class="upsell"><div class="ut">한 단계 더 깊은 진단</div><div class="ub">${rank===1
+      ?'프리미엄 코스에서는 얼굴 인상 분석·체형·헤어·메이크업·의류 스타일링이 추가됩니다. VIP 비즈니스에서는 액세서리·뷰티 업그레이드·3개월 관리 플랜까지 제공됩니다.'
+      :'VIP 비즈니스 코스에서는 액세서리 가이드·뷰티 업그레이드·3개월 이미지 관리 플랜이 추가됩니다.'}</div></div>`:'';
+
+  out.innerHTML=`<div class="sheet" id="rs-sheet">
+    <div class="sheet-top"><div class="eyebrow">Premium Image Branding Report · ${esc(tierLabel)}</div>
+      <h2>${esc(d.concept||'YOUR IMAGE')}</h2><div class="ko">${esc(d.conceptKo||se.ko||'')}</div>
+      <div class="who">${esc(d.clientName||'')} 고객님 · ${esc((d.date||d.createdAt||'').slice(0,10))}</div></div>
+    <div class="sheet-body">
+      ${secSummary}${secColor}${secImpression}${secBody}${secHair}${secMakeup}${secStyle}${secAcc}${secBeauty}${secPlan}${secStyling}${secNotes}
+      ${formula}${upsell}
+      <div class="tagline">“당신의 이미지는 화려함보다 정제된 세련미에서 가장 큰 경쟁력을 가집니다.”</div>
+    </div>
+    <div class="sheet-foot">PARK.D's COLOR LAB</div>
+  </div>`;}
+function downloadPDF(){const el=document.getElementById('rs-sheet');if(!el){toast('먼저 진단을 선택하세요');return;}
+  if(typeof html2pdf==='undefined'){toast('PDF 모듈 로딩 중… 인쇄 창으로 대체합니다');window.print();return;}
+  const nm=(currentDiag&&currentDiag.clientName)?currentDiag.clientName:'결과지';
+  toast('PDF를 생성하는 중…');
+  html2pdf().set({margin:[8,8,8,8],filename:nm+'_PARKD_진단서.pdf',
+    image:{type:'jpeg',quality:.98},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:900},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:['css','legacy'],avoid:'.sb-block'}}).from(el).save();}
+function esc(s){return(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ---------- records ---------- */
+let curTab='bookings';
+function recTab(t,btn){curTab=t;document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderRecords();}
+function renderRecords(){const list=document.getElementById('rec-list');const data=DB.get(curTab);
+  if(!data.length){list.innerHTML='<p class="empty">아직 기록이 없습니다.</p>';return;}
+  list.innerHTML=data.map(r=>{let title='',sub='';
+    if(curTab==='bookings'){title=`${r.name} · ${r.service}`;sub=`${r.date} ${r.time} · ${r.phone||'-'}${r.memo?' · '+r.memo:''}`;}
+    else if(curTab==='intakes'){title=`${r.name||'무명'} · ${Array.isArray(r.purpose)?r.purpose.join(', '):''}`;
+      sub=`${r.age||''} ${r.gender||''} · ${r.job||''}${r.goal?' · 목표: '+r.goal:''}`;}
+    else{title=`${r.clientName||'무명'} · ${r.subtype||r.concept||''}`;sub=`${(SEASONS[r.season]||{}).label||r.season||''} · ${(r.date||r.createdAt||'').slice(0,10)}`;}
+    return `<div class="rec"><div class="meta"><b>${esc(title)}</b><small>${esc(sub)}</small></div>
+      <button class="del" onclick="delRec('${r.id}')">삭제</button></div>`;}).join('');}
+function delRec(id){DB.del.call(DB,curTab,id);renderRecords();toast('삭제되었습니다');}
+
+/* ---------- lock ---------- */
+let unlocked={ws:false,rec:false};
+function checkLock(k){const locked=!unlocked[k];
+  document.getElementById(k+'-locked').style.display=locked?'block':'none';
+  document.getElementById(k+'-content').style.display=locked?'none':'block';}
+function unlock(k){const v=document.getElementById(k+'-pin').value;
+  if(v===STAFF_PIN){unlocked[k]=true;checkLock(k);toast('인증되었습니다');}else toast('PIN이 올바르지 않습니다');}
+
+/* ---------- init ---------- */
+renderTiers();renderBkServices();renderCal();renderSwatches();initStars();loadSeasonDefaults('summerwinter');checkLock('ws');checkLock('rec');
+</script>
+</body>
+</html>
